@@ -10,7 +10,7 @@ const Routes = ({ state, dispatch }) => {
   return (
     <React.Suspense fallback={null}>
       <Navbar state={state} dispatch={dispatch} location={location} />
-      <main class="main-content">
+      <main className="main-content">
         <Switch>
           <Route
             path="/create"

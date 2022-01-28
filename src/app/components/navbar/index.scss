@@ -7,7 +7,7 @@ nav {
   
   .container-navbar {
     padding: 0px 10px;
-    background: #207dff;
+    background: #FFC900;
     max-width: 480px;
     height: inherit;
     margin: 0px auto;
@@ -19,18 +19,18 @@ nav {
     .container-navbar__title {
       flex: 1;
       text-align: center;
-      color: #fff;
+      color: #274B80;
       
       strong {
-        color: #fff;
+        color: #274B80;
       }
     }
-
+    
     .container-navbar__icon-left, .container-navbar__icon-right {
       text-align: center;
       
       a {
-        color: #fff;
+        color: #274B80;
       }
     }
   }

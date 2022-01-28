@@ -49,7 +49,7 @@ const Landing = () => {
     <div className="container-landing">
       <span className="desc">
         
-        <div className="card mb-2">
+        <div className="card mb-5">
           <header className="card-header">
             <p className="card-header-title">
               Title
@@ -88,7 +88,7 @@ const Landing = () => {
             </div>
           </div>
           <footer className="card-footer">
-            <span className="card-footer-item btn-done" onClick={() => {}}>Done</span>
+            <span className="card-footer-item button btn-done is-primary" onClick={() => {}}>Done</span>
             {/* {
               data.status === 'completed' ? (
                 <span className="card-footer-item btn-undone" onClick={() => onUnDone(key)}>Undone</span>
@@ -96,7 +96,7 @@ const Landing = () => {
                 <span className="card-footer-item btn-done" onClick={() => onDone(key)}>Done</span>
               )
             } */}
-            <span className="card-footer-item btn-delete" onClick={() => {}}>Delete</span>
+            <span className="card-footer-item button btn-delete is-danger" onClick={() => {}}>Delete</span>
           </footer>
         </div>
 
@@ -153,7 +153,7 @@ const Landing = () => {
         {/* <div className="empty-message">To Do list is Empty!</div> */}
 
 
-        <div className="card mb-2">
+        <div className="card mb-5">
           <header className="card-header">
             <p className="card-header-title">
               Title
@@ -170,8 +170,8 @@ const Landing = () => {
             </div>
           </div>
           <footer className="card-footer">
-            <span className="card-footer-item btn-done" onClick={() => {}}>Done</span>
-            <span className="card-footer-item btn-delete" onClick={() => {}}>Delete</span>
+            <span className="card-footer-item button btn-done is-primary" onClick={() => {}}>Done</span>
+            <span className="card-footer-item button btn-delete is-danger" onClick={() => {}}>Delete</span>
           </footer>
         </div>
       </span>
