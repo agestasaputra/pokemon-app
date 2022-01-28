@@ -3,6 +3,7 @@ import './index.scss'
 import { NavLink } from "react-router-dom";
 
 const Navbar = ({ state, location }) => {
+  console.log("location:", location);
   return (
     <nav>
       <div className="container-navbar">

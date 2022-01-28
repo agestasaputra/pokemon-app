@@ -1,16 +1,46 @@
 .container-landing {
-  max-width: 480px;
   min-height: inherit;
-  margin: 0px auto;
-  box-shadow: 0px 0px 8px -3px #00000033;
-  padding: 10px;
 
   .card {
+    
+    &:last-child {
+      margin-bottom: 0px !important;
+    }
+    
+    .card-header {
+      background: #FFC900;
+      .card-header-title {
+        color: #274B80
+      }
+    }
+    .card-content {
+      background: #F9D962;
+      .content {
+        color: #274B80
+      }
+    }
     .card-footer-item {
+      color: #274B80;
+
+      &.btn-done {
+        border-radius: 0em 0em 0em 0.4em;
+        -webkit-border-radius: 0em 0em 0em 0.4em;
+        -moz-border-radius: 0em 0em 0em 0.4em;
+        -ms-border-radius: 0em 0em 0em 0.4em;
+        -o-border-radius: 0em 0em 0em 0.4em;
+}
+      &.btn-delete {
+        border-radius: 0em 0em 0.4em 0em;
+        -webkit-border-radius: 0em 0em 0.4em 0em;
+        -moz-border-radius: 0em 0em 0.4em 0em;
+        -ms-border-radius: 0em 0em 0.4em 0em;
+        -o-border-radius: 0em 0em 0.4em 0em;
+}
+
       &:hover {
         cursor: pointer;
         text-decoration: underline;
-        color: #207dff
+        color: #274B80
       }
     } 
   }
