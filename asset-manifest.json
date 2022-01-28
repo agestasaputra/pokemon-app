@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/pokemon-app/static/css/main.99f039ee.css",
-    "main.js": "/pokemon-app/static/js/main.c4b63f18.js",
+    "main.js": "/pokemon-app/static/js/main.daeac9f5.js",
     "static/media/fontawesome-webfont.svg?v=4.7.0": "/pokemon-app/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
     "static/media/fontawesome-webfont.eot": "/pokemon-app/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
     "static/media/fontawesome-webfont.ttf?v=4.7.0": "/pokemon-app/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
@@ -9,10 +9,10 @@
     "static/media/fontawesome-webfont.woff2?v=4.7.0": "/pokemon-app/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
     "index.html": "/pokemon-app/index.html",
     "main.99f039ee.css.map": "/pokemon-app/static/css/main.99f039ee.css.map",
-    "main.c4b63f18.js.map": "/pokemon-app/static/js/main.c4b63f18.js.map"
+    "main.daeac9f5.js.map": "/pokemon-app/static/js/main.daeac9f5.js.map"
   },
   "entrypoints": [
     "static/css/main.99f039ee.css",
-    "static/js/main.c4b63f18.js"
+    "static/js/main.daeac9f5.js"
   ]
 }
