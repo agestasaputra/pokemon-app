@@ -1,0 +1,21 @@
+.container-landing {
+  max-width: 480px;
+  min-height: inherit;
+  margin: 0px auto;
+  box-shadow: 0px 0px 8px -3px #00000033;
+  padding: 10px;
+
+  .card {
+    .card-footer-item {
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+        color: #207dff
+      }
+    } 
+  }
+
+  .empty-message {
+    text-align: center;
+  }
+}

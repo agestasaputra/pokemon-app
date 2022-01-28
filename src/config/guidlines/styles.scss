@@ -1,0 +1,47 @@
+@import "./colors";
+@import "./fonts";
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+*:focus {
+  outline: none;
+}
+
+html {
+  @media (max-width: 480px) {
+    overflow: hidden;
+  }
+}
+
+body {
+  height: 100vh;
+  padding: 0px;
+  font-family: "Poppins", helvetica;
+  // margin-top: 51.9px;
+
+  @media (max-width: 480px) {
+    margin-top: 0px;
+    margin-bottom: 59px;
+    overflow-x: hidden;
+  }
+
+  hr {
+    width: 20%;
+    margin: 1% auto 1% auto;
+    text-align: center;
+    border: 1px solid var(--color-dope-black) !important;
+    background: var(--color-dope-black);
+  }
+
+  .d-flex {
+    display: flex;
+  }
+
+  .d-none {
+    display: none;
+  }
+}
