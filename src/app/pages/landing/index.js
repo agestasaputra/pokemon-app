@@ -1,183 +1,148 @@
-import React from "react";
+import React from "react"
 import './styles.scss'
-// import moment from 'moment';
-// import { useSelector } from "react-redux";
+// import moment from 'moment'
+// import { useSelector } from "react-redux"
 // import { doneTodo, undoneTodo, deleteTodo, fetchAllTodo } from "redux/actions/Todos"
+import axiosInstance from "config/services"
 
 const Landing = () => {
-  // const store = useSelector(state => state);
+  // const store = useSelector(state => state)
+
+  const [pokemon, setPokemon] = React.useState({
+    next: '',
+    list: [],
+    loading: true,
+  })
+  const [loadingLoadMore, setLoadingLoadMore] = React.useState(false)
+  const [ownedTotal, setOwnedTotal] = React.useState(0)
 
   React.useEffect(() => {
-    // onFetchAllTodo()
+    onFetchAllPokemon()
   }, [])
 
-  // function onFetchAllTodo() {
-  //   try {
-  //     console.log("onFetchAllTodo!");
-  //     fetchAllTodo();
-  //   } catch (error) {
-  //     alert(`Error - ${error.message}`)
-  //     throw error;
-  //   }
-  // }
-
-  // function onUnDone(key) {
-  //   const payload = [...store.todo.datas];
-  //   payload[key].status = "pending";
-  //   console.log("onUnDone!");
-  //   console.log("payload:", payload);
-  //   undoneTodo(payload)
-  // }
-
-  // function onDone(key) {
-  //   const payload = [...store.todo.datas];
-  //   payload[key].status = "completed";
-  //   console.log("onUnDone!");
-  //   console.log("payload:", payload);
-  //   doneTodo(payload)
-  // }
+  async function onFetchAllPokemon() {
+    console.log("onFetchAllPokemon!")
+    try {
+      setPokemon({
+        ...pokemon,
+        loading: true,
+      })
+      await axiosInstance.get("/pokemon?limit=10&offset=0")
+        .then((res) => {
+          const pokemon = {
+            loading: true,
+            next: res.data.next,
+            list: res.data.results,
+          }
+          onFetchDetailPokemon(pokemon, "onFetchAllPokemon")
+        })  
+        .catch(err => {
+          throw err
+        })
+    } catch (error) {
+      setPokemon({
+        ...pokemon,
+        loading: false,
+      })
+      alert(`Error - ${error.message}`)
+      throw error
+    }
   
-  // function onDelete(key) {
-  //   console.log("onDelete!");
-  //   const payload = [...store.todo.datas];
-  //   console.log("payload:", payload);
-  //   payload.splice(key, 1)
-  //   deleteTodo(payload)
-  // }
+  }
+  async function onFetchDetailPokemon(data, from) {
+    console.log("onFetchDetailPokemon! - data:", data)
+    try {
+      setPokemon({
+        ...pokemon,
+        loading: from === "onFetchAllPokemon" ? true : false,
+      })
+      let promises = []
+      for (const item of data.list) {
+        const params = item.url.split("v2")[1];
+        const { data: sprites } = await axiosInstance.get(`${params}`)
+        promises.push(sprites);
+      }
+
+      await Promise.all(promises)
+        .then((res) => {
+          let pokemonTemp = [...data.list];
+          res.forEach((item, index) => {
+            const findIndex = pokemonTemp.findIndex((pok) => item.name === pok.name)
+            pokemonTemp[findIndex].sprites = item.sprites
+          })
+          setPokemon({
+            ...data,
+            next: data.next,
+            list: [...pokemon.list, ...pokemonTemp],
+            loading: false
+          })
+          setLoadingLoadMore(false)
+        })
+        .catch(err => {
+          throw err
+        })
+    } catch (error) {
+      alert(`Error - ${error.message}`)
+      setPokemon({
+        ...pokemon,
+        loading: false,
+      })
+      setLoadingLoadMore(false)
+      throw error
+    }
+  }
+  async function onFetchMorePokemon() {
+    console.log("onFetchMorePokemon!")
+    try {
+      setLoadingLoadMore(true)
+      const params = pokemon.next.split("v2")[1];
+      await axiosInstance.get(`${params}`)
+        .then((res) => {
+          const pokemon = {
+            loading: false,
+            next: res.data.next,
+            list: res.data.results,
+          }
+          onFetchDetailPokemon(pokemon, "onFetchMorePokemon")
+        })
+        .catch(err => {
+          throw err
+        })
+    } catch (error) {
+      alert(`Error - ${error.message}`)
+      setLoadingLoadMore(false)
+      throw error
+    }
+  }
 
   return (
     <div className="container-landing">
-      <span className="desc">
-        
-        <div className="card mb-5">
-          <header className="card-header">
-            <p className="card-header-title">
-              Title
-              {/* {
-                data.status === 'completed' ? (
-                  <del>{ data.title }</del>
-                ) : (
-                  <React.Fragment>
-                    { data.title }
-                  </React.Fragment>
-                )
-              } */}
-            </p>
-          </header>
-          <div className="card-content">
-            <div className="content">
-              <div> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into 
-                electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-                and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
-              </div>
-              <div> <i> 28/01/2022 </i> </div>                         
-              {/* {
-                data.status === 'completed' ? (
-                  <React.Fragment>
-                    <del> { data.description } </del>
-                    <div> <i>{ moment(data.due_on).format('LL') }</i> </div>
-                  </React.Fragment>
-                ) : (
-                  <React.Fragment>
-                    <div> { data.description } </div>
-                    <div> <i>{ moment(data.due_on).format('LL') }</i> </div>                         
-                  </React.Fragment>
-                )
-              } */}
-            </div>
-          </div>
-          <footer className="card-footer">
-            <span className="card-footer-item button btn-done is-primary" onClick={() => {}}>Done</span>
-            {/* {
-              data.status === 'completed' ? (
-                <span className="card-footer-item btn-undone" onClick={() => onUnDone(key)}>Undone</span>
-              ) : (
-                <span className="card-footer-item btn-done" onClick={() => onDone(key)}>Done</span>
-              )
-            } */}
-            <span className="card-footer-item button btn-delete is-danger" onClick={() => {}}>Delete</span>
-          </footer>
-        </div>
-
-        {/* {
-          store.todo.datas.length > 0 ? (
-            store.todo.datas.map((data, key) => (
-              <div className="card mb-2" key={key} >
-                <header className="card-header">
-                  <p className="card-header-title">
-                    {
-                      data.status === 'completed' ? (
-                        <del>{ data.title }</del>
-                      ) : (
-                        <React.Fragment>
-                          { data.title }
-                        </React.Fragment>
-                      )
-                    }
-                  </p>
-                </header>
+      { pokemon.loading && <progress className="progress is-small is-primary" max="100">80%</progress> }
+      <span className="list mb-5">
+        {
+          pokemon.list.length > 0 && (
+            pokemon.list.map((data, key) => (
+              <div className="card" key={key} >
                 <div className="card-content">
                   <div className="content">
-                    {
-                      data.status === 'completed' ? (
-                        <React.Fragment>
-                          <del> { data.description } </del>
-                          <div> <i>{ moment(data.due_on).format('LL') }</i> </div>
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          <div> { data.description } </div>
-                          <div> <i>{ moment(data.due_on).format('LL') }</i> </div>                         
-                        </React.Fragment>
-                      )
-                    }
+                    <img src={data.sprites.front_default} alt={data.name} />
                   </div>
                 </div>
                 <footer className="card-footer">
-                  {
-                    data.status === 'completed' ? (
-                      <span className="card-footer-item btn-undone" onClick={() => onUnDone(key)}>Undone</span>
-                    ) : (
-                      <span className="card-footer-item btn-done" onClick={() => onDone(key)}>Done</span>
-                    )
-                  }
-                  <span className="card-footer-item btn-delete" onClick={() => onDelete(key)}>Delete</span>
+                  <p className="card-footer-title">
+                    { data.name }
+                  </p>
                 </footer>
               </div>
             ))
-          ) : (
-            <div className="empty-message">To Do list is Empty!</div>
-            )
-          } */}
-        {/* <div className="empty-message">To Do list is Empty!</div> */}
-
-
-        <div className="card mb-5">
-          <header className="card-header">
-            <p className="card-header-title">
-              Title
-            </p>
-        </header>
-        <div className="card-content">
-          <div className="content">
-            <div> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-              when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into 
-              electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-              and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
-            </div>
-            <div> <i> 28/01/2022 </i> </div>  
-            </div>
-          </div>
-          <footer className="card-footer">
-            <span className="card-footer-item button btn-done is-primary" onClick={() => {}}>Done</span>
-            <span className="card-footer-item button btn-delete is-danger" onClick={() => {}}>Delete</span>
-          </footer>
-        </div>
+          )
+        }
       </span>
+      { pokemon.list.length === 0 && !pokemon.loading && <div className="empty-message">To Do list is Empty!</div> }
+      { pokemon.list.length > 0 && <button className={`button is-fullwidth is-success ${loadingLoadMore && 'is-loading'}`} onClick={onFetchMorePokemon}>Load more</button> }   
     </div>
 
-  );
-};
+  )
+}
 
-export default Landing;
+export default Landing
