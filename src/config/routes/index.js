@@ -5,6 +5,7 @@ import Header from "app/components/header";
 import Landing from "app/pages/landing";
 import Create from "app/pages/create";
 import Detail from "app/pages/detail";
+import PokemonList from "app/pages/pokemon-list";
 import "./styles.scss";
 
 const Routes = ({ state, dispatch }) => {
@@ -14,6 +15,12 @@ const Routes = ({ state, dispatch }) => {
       <Header state={state} dispatch={dispatch} location={location} />
       <main className="main-content">
         <Switch>
+          <Route
+            path="/my-pokemon"
+            component={(props) => (
+              <PokemonList {...props} state={state} dispatch={dispatch} />
+            )}
+          />
           <Route
             path="/:pokemonId"
             component={(props) => (

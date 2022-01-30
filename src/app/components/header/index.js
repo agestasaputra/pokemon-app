@@ -1,11 +1,9 @@
 import React from 'react'
 import './index.scss'
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 const Header = ({ state, dispatch, location }) => {
-  // console.log("location:", location);
-  // console.log("window.location.href:", window.location.href);
-  // console.log("window.location.pathname:", window.location.pathname);
+  const history = useHistory()
 
   function onBackClicked() {
     dispatch({
@@ -13,6 +11,17 @@ const Header = ({ state, dispatch, location }) => {
       data: {
         ...state.header,
         title: 'Pokemon App'
+      }
+    });
+    history.goBack()
+  }
+
+  function onMyPokemonClicked() {
+    dispatch({
+      type: "header",
+      data: {
+        ...state.header,
+        title: 'My Pokemon'
       }
     });
   }
@@ -23,9 +32,7 @@ const Header = ({ state, dispatch, location }) => {
         <div className="container-navbar__icon-left">
           {
             !(location.pathname === '/' || location.pathname === '/pokemon-app/') && (
-              <NavLink to={"/"} onClick={onBackClicked}>
-                <i className="fa fa-arrow-circle-left" />
-              </NavLink>
+              <i className="fa fa-lg fa-arrow-circle-left" onClick={onBackClicked} />
             )
           }
         </div>
@@ -35,8 +42,8 @@ const Header = ({ state, dispatch, location }) => {
         <div className="container-navbar__icon-right">
           {
             location.pathname !== '/create' && (
-              <NavLink to={"/create"}>
-                <i className="fa fa-plus-circle" />
+              <NavLink to={"/my-pokemon"} onClick={onMyPokemonClicked}>
+                <i className="fa fa-lg fa-heart" />
               </NavLink>
             )
           }

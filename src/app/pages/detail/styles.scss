@@ -4,24 +4,74 @@
   .info-img {
     text-align: center;
   }
-  .info-stats {
-    flex: 1;
-    background: #FFC900;
-    
-      .info-stats__title {
-        background: #274b80;
-        padding: 3px 10px;
-        font-weight: bold;
-        color: #FFF79A;
-      }
-      
-      .info-stats__detail {
-        padding: 3px 10px;
-        
-        .info-stats__detail-title {
+
+  .accordion {
+    .accordion-item {
+
+      .accordion-header {
+        .accordion-button {
+          background-color: #274B80;
+          color: #FFF89A;
+          display: flex;
+          justify-content: space-between;
           font-weight: bold;
-          color: #274b80;
+  
+          &.collapsed {
+            .fa-chevron-down {
+              transform: rotate(180deg);
+              -webkit-transform: rotate(180deg);
+              -moz-transform: rotate(180deg);
+              -ms-transform: rotate(180deg);
+              -o-transform: rotate(180deg);
+              transition: transform .2s ease-in-out;
+              -webkit-transition: transform .2s ease-in-out;
+              -moz-transition: transform .2s ease-in-out;
+              -ms-transition: transform .2s ease-in-out;
+              -o-transition: transform .2s ease-in-out;
+            }
+          }
+  
+          &:after {
+            background-image: unset;
+            content: unset;
+          }
         }
       }
+
+      .accordion-collapse {
+        .accordion-body {
+          // background: #FFC900;
+
+          .info-stats__detail-title {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            color: #274b80;
+
+            .info-stats__detail-title__left {
+              text-transform: capitalize;
+            }
+          }
+
+          .badge {
+            margin-right: 5px;
+            padding: 8px 10px;
+            font-size: 15px;
+            text-transform: capitalize;
+
+            &:last-child {
+              margin: 0px;
+            }
+          }
+
+          .list-group-item {
+            margin-right: 5px;
+            padding: 8px 10px;
+            font-size: 15px;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
   }
 }

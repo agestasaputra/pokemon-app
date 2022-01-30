@@ -5,13 +5,19 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
+
+    a {
+      text-decoration: unset;
+    }
  
     .card {
-      // &:last-child {
-      //   margin-bottom: 0px !important;
-      // }
+      overflow: auto;
+      border: 2px solid #FFC900;
+      box-shadow: 0.1em 0.1em 0.7em #898989;
+      
       &:hover {
-        box-shadow: 0.1em 0.1em 0.7em rgb(10, 10, 10 / 20%);
+        box-shadow: 0.1em 0.1em 0.7em #505050;
+        border: 2px solid #0d6efd;
         cursor: pointer;
       }
       
@@ -36,12 +42,13 @@
         background: #FFC900;
         border-top: 0px;
         padding: 10px;
-        justify-content: center;
+        text-align: center;
 
         .card-footer-title {
           color: #274B80;
           font-weight: bold;
           text-transform: capitalize;
+          text-decoration: unset;
         }
 
         .card-footer-item {

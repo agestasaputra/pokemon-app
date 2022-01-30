@@ -5,6 +5,7 @@ import './styles.scss'
 // import { doneTodo, undoneTodo, deleteTodo, fetchAllTodo } from "redux/actions/Todos"
 import axiosInstance from "config/services"
 import { NavLink } from "react-router-dom"
+import { Spinner, Button } from "react-bootstrap"
 
 const Landing = ({ state, dispatch }) => {
   // const store = useSelector(state => state)
@@ -15,7 +16,7 @@ const Landing = ({ state, dispatch }) => {
     loading: true,
   })
   const [loadingLoadMore, setLoadingLoadMore] = React.useState(false)
-  const [ownedTotal, setOwnedTotal] = React.useState(0)
+  // const [ownedTotal, setOwnedTotal] = React.useState(0)
 
   React.useEffect(() => {
     onFetchAllPokemon()
@@ -27,66 +28,28 @@ const Landing = ({ state, dispatch }) => {
         ...pokemon,
         loading: true,
       })
-      await axiosInstance.get("/pokemon?limit=10&offset=0")
-        .then((res) => {
-          const pokemon = {
-            loading: true,
-            next: res.data.next,
-            list: res.data.results,
-          }
-          onFetchDetailPokemon(pokemon, "onFetchAllPokemon")
-        })  
-        .catch(err => {
-          throw err
+      const res = await axiosInstance.get("/pokemon?limit=10&offset=0")
+
+      const filtered = res.data.results.map((poke) => {
+        const splitted = poke.url.split("/")
+        const pokeId = splitted[splitted.length - 2]
+        return ({
+          ...poke,
+          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`
         })
+      })
+      
+      setPokemon({
+        next: res.data.next,
+        list: filtered,
+        loading: false
+      })
     } catch (error) {
       setPokemon({
         ...pokemon,
         loading: false,
       })
       alert(`Error - ${error.message}`)
-      throw error
-    }
-  }
-
-  async function onFetchDetailPokemon(data, from) {
-    try {
-      setPokemon({
-        ...pokemon,
-        loading: from === "onFetchAllPokemon" ? true : false,
-      })
-      let promises = []
-      for (const item of data.list) {
-        const params = item.url.split("v2")[1];
-        const { data: sprites } = await axiosInstance.get(`${params}`)
-        promises.push(sprites);
-      }
-
-      await Promise.all(promises)
-        .then((res) => {
-          let pokemonTemp = [...data.list];
-          res.forEach((item, index) => {
-            const findIndex = pokemonTemp.findIndex((pok) => item.name === pok.name)
-            pokemonTemp[findIndex].sprites = item.sprites
-          })
-          setPokemon({
-            ...data,
-            next: data.next,
-            list: [...pokemon.list, ...pokemonTemp],
-            loading: false
-          })
-          setLoadingLoadMore(false)
-        })
-        .catch(err => {
-          throw err
-        })
-    } catch (error) {
-      alert(`Error - ${error.message}`)
-      setPokemon({
-        ...pokemon,
-        loading: false,
-      })
-      setLoadingLoadMore(false)
       throw error
     }
   }
@@ -95,18 +58,26 @@ const Landing = ({ state, dispatch }) => {
     try {
       setLoadingLoadMore(true)
       const params = pokemon.next.split("v2")[1];
-      await axiosInstance.get(`${params}`)
-        .then((res) => {
-          const pokemon = {
-            loading: false,
-            next: res.data.next,
-            list: res.data.results,
-          }
-          onFetchDetailPokemon(pokemon, "onFetchMorePokemon")
+      const res = await axiosInstance.get(`${params}`)
+
+      const filtered = res.data.results.map((poke) => {
+        const splitted = poke.url.split("/")
+        const pokeId = splitted[splitted.length - 2]
+        return ({
+          ...poke,
+          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`
         })
-        .catch(err => {
-          throw err
-        })
+      })
+      
+      setPokemon({
+        next: res.data.next,
+        list: [
+          ...pokemon.list,
+          ...filtered
+        ],
+        loading: false
+      })
+      setLoadingLoadMore(false)
     } catch (error) {
       alert(`Error - ${error.message}`)
       setLoadingLoadMore(false)
@@ -126,8 +97,14 @@ const Landing = ({ state, dispatch }) => {
 
   return (
     <div className="container-landing">
-      { pokemon.loading && <progress className="progress is-small is-primary" max="100">80%</progress> }
-      <span className="list mb-5">
+      { 
+        pokemon.loading && (
+          <div className="loading-section text-center">
+            <Spinner animation="border" variant="warning" />
+          </div>
+        ) 
+      }
+      <span className="list mb-4">
         {
           pokemon.list.length > 0 && (
             pokemon.list.map((data, key) => (
@@ -135,7 +112,8 @@ const Landing = ({ state, dispatch }) => {
               <div className="card" >
                 <div className="card-content">
                   <div className="content">
-                    <img src={data.sprites.front_default} alt={data.name} />
+                    {/* <img src={data.sprites.front_default} alt={data.name} /> */}
+                    <img src={data.image} alt={data.name} />
                   </div>
                 </div>
                 <footer className="card-footer">
@@ -150,7 +128,32 @@ const Landing = ({ state, dispatch }) => {
         }
       </span>
       { pokemon.list.length === 0 && !pokemon.loading && <div className="empty-message">To Do list is Empty!</div> }
-      { pokemon.list.length > 0 && <button className={`button is-fullwidth is-success ${loadingLoadMore && 'is-loading'}`} onClick={onFetchMorePokemon}>Load more</button> }   
+      { 
+        pokemon.list.length > 0 && (
+          <div className="d-grid">
+            <Button 
+              variant="primary" 
+              size="block"
+              disabled={loadingLoadMore}
+              onClick={onFetchMorePokemon}
+            >
+              {
+                loadingLoadMore ? (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <React.Fragment>Load more</React.Fragment>
+                )
+              }
+            </Button>
+          </div>
+        ) 
+      }   
     </div>
 
   )

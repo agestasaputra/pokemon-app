@@ -28,6 +28,11 @@ nav {
     
     .container-navbar__icon-left, .container-navbar__icon-right {
       text-align: center;
+      color: #274B80;
+
+      &:hover {
+        cursor: pointer;
+      }
       
       a {
         color: #274B80;
