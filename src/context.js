@@ -10,6 +10,9 @@ import React from "react";
 const Context = React.createContext();
 
 const initialState = {
+  header: {
+    title: "Pokemon App"
+  },
   landing: {
     datas: []
   }
@@ -17,6 +20,13 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "header":
+      console.log("state:", state);
+      console.log("action.type:", action.type);
+      return {
+        ...state,
+        header: action.data
+      };
     case "landing":
       return {
         ...state,

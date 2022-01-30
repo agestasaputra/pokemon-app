@@ -1,0 +1,27 @@
+.container-detail {
+  min-height: inherit;
+
+  .info-img {
+    text-align: center;
+  }
+  .info-stats {
+    flex: 1;
+    background: #FFC900;
+    
+      .info-stats__title {
+        background: #274b80;
+        padding: 3px 10px;
+        font-weight: bold;
+        color: #FFF79A;
+      }
+      
+      .info-stats__detail {
+        padding: 3px 10px;
+        
+        .info-stats__detail-title {
+          font-weight: bold;
+          color: #274b80;
+        }
+      }
+  }
+}

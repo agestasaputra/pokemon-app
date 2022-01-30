@@ -4,8 +4,9 @@ import './styles.scss'
 // import { useSelector } from "react-redux"
 // import { doneTodo, undoneTodo, deleteTodo, fetchAllTodo } from "redux/actions/Todos"
 import axiosInstance from "config/services"
+import { NavLink } from "react-router-dom"
 
-const Landing = () => {
+const Landing = ({ state, dispatch }) => {
   // const store = useSelector(state => state)
 
   const [pokemon, setPokemon] = React.useState({
@@ -21,7 +22,6 @@ const Landing = () => {
   }, [])
 
   async function onFetchAllPokemon() {
-    console.log("onFetchAllPokemon!")
     try {
       setPokemon({
         ...pokemon,
@@ -47,10 +47,9 @@ const Landing = () => {
       alert(`Error - ${error.message}`)
       throw error
     }
-  
   }
+
   async function onFetchDetailPokemon(data, from) {
-    console.log("onFetchDetailPokemon! - data:", data)
     try {
       setPokemon({
         ...pokemon,
@@ -91,8 +90,8 @@ const Landing = () => {
       throw error
     }
   }
+
   async function onFetchMorePokemon() {
-    console.log("onFetchMorePokemon!")
     try {
       setLoadingLoadMore(true)
       const params = pokemon.next.split("v2")[1];
@@ -115,6 +114,16 @@ const Landing = () => {
     }
   }
 
+  function onCardClicked() {
+    dispatch({
+      type: "header",
+      data: {
+        ...state.header,
+        title: 'Pokemon Detail'
+      }
+    });
+  }
+
   return (
     <div className="container-landing">
       { pokemon.loading && <progress className="progress is-small is-primary" max="100">80%</progress> }
@@ -122,7 +131,8 @@ const Landing = () => {
         {
           pokemon.list.length > 0 && (
             pokemon.list.map((data, key) => (
-              <div className="card" key={key} >
+              <NavLink to={`/${key+1}`} onClick={onCardClicked} key={key}>
+              <div className="card" >
                 <div className="card-content">
                   <div className="content">
                     <img src={data.sprites.front_default} alt={data.name} />
@@ -134,6 +144,7 @@ const Landing = () => {
                   </p>
                 </footer>
               </div>
+              </NavLink>
             ))
           )
         }

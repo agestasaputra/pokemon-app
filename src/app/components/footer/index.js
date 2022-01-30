@@ -2,7 +2,7 @@ import React from 'react'
 import './index.scss'
 import { NavLink } from "react-router-dom";
 
-const Navbar = ({ state, location }) => {
+const Footer = ({ state, location }) => {
   // console.log("location:", location);
   // console.log("window.location.href:", window.location.href);
   // console.log("window.location.pathname:", window.location.pathname);
@@ -36,4 +36,4 @@ const Navbar = ({ state, location }) => {
 }
 
 
-export default Navbar;
+export default Footer;
