@@ -55,25 +55,54 @@ const PokemonList = ({ state, dispatch }) => {
         {
           pokemon.list.length > 0 && (
             pokemon.list.map((data, key) => (
-              <div className="card" key={key}>
-                  <div className="card-content">
-                    <div className="content">
-                      <img src={data.sprites.front_default} alt={data.name} />
-                    </div>
-                  </div>
-                <footer className="card-footer">
-                  <p className="card-footer-title">
-                    <span>
-                      { data.customName } 
-                    </span>
-                    <span>
-                      <Badge pill bg="success">
-                        { data.name }
-                      </Badge>
-                    </span>
-                  </p>
-                  <div className="button-container mt-2">
+              // <div className="card" key={key}>
+              //     <div className="card-content">
+              //       <div className="content">
+              //         <img src={data.sprites.front_default} alt={data.name} />
+              //       </div>
+              //     </div>
+              //   <footer className="card-footer">
+              //     <p className="card-footer-title">
+              //       <span>
+              //         { data.customName } 
+              //       </span>
+              //       <span>
+              //         <Badge pill bg="success">
+              //           { data.name }
+              //         </Badge>
+              //       </span>
+              //     </p>
+              //     <div className="button-container mt-2">
                     
+              //       <NavLink to={`/${data.id}`} onClick={onCardClicked}>
+              //         <Button 
+              //           variant="primary" 
+              //         >
+              //           <i className="fa fa-info-circle" />
+              //         </Button>
+              //       </NavLink>
+              //       <Button 
+              //         variant="danger" 
+              //       >
+              //         <i className="fa fa-trash" onClick={() => onTrashClicked(data)}/>
+              //       </Button>
+              //     </div>
+              //   </footer>
+              // </div>
+              // <NavLink to={`/${data.id}`} onClick={onCardClicked} key={key}>
+              <div className="card" key={key}>
+                <div className="card-info">
+                  <div className="card-info__header">
+                    <h6 className="card-info__header--text">
+                      { data.customName }
+                    </h6>
+                    <Badge pill bg="danger" className="card-info__header--button">
+                      { data.name }
+                    </Badge>
+                  </div>
+                  <div className="card-info__action">
+                    {/* <i className="fa fa-2x fa-info-circle" />
+                    <i className="fa fa-2x fa-trash" onClick={() => {}}/> */}
                     <NavLink to={`/${data.id}`} onClick={onCardClicked}>
                       <Button 
                         variant="primary" 
@@ -81,14 +110,17 @@ const PokemonList = ({ state, dispatch }) => {
                         <i className="fa fa-info-circle" />
                       </Button>
                     </NavLink>
+                    &nbsp;
                     <Button 
                       variant="danger" 
                     >
                       <i className="fa fa-trash" onClick={() => onTrashClicked(data)}/>
                     </Button>
                   </div>
-                </footer>
+                </div>
+                <img src={data.image} alt={data.name} />
               </div>
+              // </NavLink>
             ))
           )
         }

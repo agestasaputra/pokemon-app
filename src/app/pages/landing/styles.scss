@@ -23,7 +23,6 @@
       background: #FFC900;
       display: flex;
       flex-flow: row nowrap;
-      // justify-content: space-between;
       height: 120px;
       
       &:hover {
@@ -55,6 +54,7 @@
           -webkit-line-clamp: 1 !important;
         }
       }
+      
       img {
         position: absolute;
         right: 0px;
@@ -62,6 +62,7 @@
         width: 100px;
         height: 100px;
       }
+
       // .card-image {
       //   img {
       //     max-width: 90px;

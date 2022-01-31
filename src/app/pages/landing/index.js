@@ -147,17 +147,17 @@ const Landing = ({ state, dispatch }) => {
           pokemon.list.length > 0 && (
             pokemon.list.map((data, key) => (
               <NavLink to={`/${key+1}`} onClick={onCardClicked} key={key}>
-              <div className="card" >
-                <div className="card-info">
-                  <h5 className="card-info__title">
-                    { data.name }
-                  </h5>
-                  <p className="card-desc">
-                    Owned: { data.owned }
-                  </p>
+                <div className="card" >
+                  <div className="card-info">
+                    <h5 className="card-info__title">
+                      { data.name }
+                    </h5>
+                    <p className="card-desc">
+                      Owned: { data.owned }
+                    </p>
+                  </div>
+                  <img src={data.image} alt={data.name} />
                 </div>
-                <img src={data.image} alt={data.name} />
-              </div>
               </NavLink>
             ))
           )
