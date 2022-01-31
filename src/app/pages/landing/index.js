@@ -1,14 +1,10 @@
 import React from "react"
 import './styles.scss'
-// import moment from 'moment'
-// import { useSelector } from "react-redux"
-// import { doneTodo, undoneTodo, deleteTodo, fetchAllTodo } from "redux/actions/Todos"
 import axiosInstance from "config/services"
 import { NavLink } from "react-router-dom"
 import { Spinner, Button } from "react-bootstrap"
 
 const Landing = ({ state, dispatch }) => {
-  // const store = useSelector(state => state)
 
   const [pokemon, setPokemon] = React.useState({
     next: '',
@@ -16,7 +12,6 @@ const Landing = ({ state, dispatch }) => {
     loading: true,
   })
   const [loadingLoadMore, setLoadingLoadMore] = React.useState(false)
-  // const [ownedTotal, setOwnedTotal] = React.useState(0)
 
   React.useEffect(() => {
     onFetchAllPokemon()
@@ -28,20 +23,39 @@ const Landing = ({ state, dispatch }) => {
         ...pokemon,
         loading: true,
       })
-      const res = await axiosInstance.get("/pokemon?limit=10&offset=0")
+      const res = await axiosInstance.get("/pokemon?limit=20&offset=0")
 
       const filtered = res.data.results.map((poke) => {
         const splitted = poke.url.split("/")
         const pokeId = splitted[splitted.length - 2]
         return ({
           ...poke,
-          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`
+          customName: '',
+          id: Number(pokeId),
+          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`,
+          owned: 0
         })
       })
+      let listResult = []
       
+      if (localStorage.getItem("pokemon")) {
+        const dataLocalStorage = JSON.parse(localStorage.getItem("pokemon"))
+        const updateOwned = filtered.map((item) => {
+          let result = {...item};
+          const founded = dataLocalStorage.filter((itemLocalStorage) => itemLocalStorage.id === item.id)
+          if (founded && founded !== -1) {
+            result.owned = founded.length
+          }
+          return result;
+        })
+        listResult = updateOwned
+      } else {
+        listResult = filtered
+      }
+
       setPokemon({
         next: res.data.next,
-        list: filtered,
+        list: listResult,
         loading: false
       })
     } catch (error) {
@@ -65,15 +79,34 @@ const Landing = ({ state, dispatch }) => {
         const pokeId = splitted[splitted.length - 2]
         return ({
           ...poke,
-          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`
+          customName: '',
+          id: Number(pokeId),
+          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`,
+          owned: 0
         })
       })
+      let listResult = []
+
+      if (localStorage.getItem("pokemon")) {
+        const dataLocalStorage = JSON.parse(localStorage.getItem("pokemon"))
+        const updateOwned = filtered.map((item) => {
+          let result = {...item};
+          const founded = dataLocalStorage.filter((itemLocalStorage) => itemLocalStorage.id === item.id)
+          if (founded && founded !== -1) {
+            result.owned = founded.length
+          }
+          return result;
+        })
+        listResult = updateOwned
+      } else {
+        listResult = filtered
+      }
       
       setPokemon({
         next: res.data.next,
         list: [
           ...pokemon.list,
-          ...filtered
+          ...listResult
         ],
         loading: false
       })
@@ -104,24 +137,22 @@ const Landing = ({ state, dispatch }) => {
           </div>
         ) 
       }
-      <span className="list mb-4">
+      <span className="list mb-3">
         {
           pokemon.list.length > 0 && (
             pokemon.list.map((data, key) => (
               <NavLink to={`/${key+1}`} onClick={onCardClicked} key={key}>
-              <div className="card" >
-                <div className="card-content">
-                  <div className="content">
-                    {/* <img src={data.sprites.front_default} alt={data.name} /> */}
-                    <img src={data.image} alt={data.name} />
+                <div className="card" >
+                  <div className="card-info">
+                    <h6 className="card-info__title">
+                      { data.name }
+                    </h6>
+                    <p className="card-desc">
+                      Owned: <strong>{ data.owned }</strong>
+                    </p>
                   </div>
+                  <img src={data.image} alt={data.name} />
                 </div>
-                <footer className="card-footer">
-                  <p className="card-footer-title">
-                    { data.name }
-                  </p>
-                </footer>
-              </div>
               </NavLink>
             ))
           )

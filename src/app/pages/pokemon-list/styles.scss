@@ -1,102 +1,114 @@
-.container-landing {
+.container-my-pokemon {
   min-height: inherit;
 
+  .toast-container {
+    z-index: 999;
+
+    .toast-body {
+      text-align: center;
+    }
+  }
+  
   .list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
 
+    @media (max-width: 400px) {
+      grid-gap: 10px;
+    }
+
     a {
       text-decoration: unset;
     }
- 
+    
     .card {
       overflow: auto;
       border: 2px solid #FFC900;
+      border-radius: 1em !important;
+      -webkit-border-radius: 1em !important;
+      -moz-border-radius: 1em !important;
+      -ms-border-radius: 1em !important;
+      -o-border-radius: 1em !important;
       box-shadow: 0.1em 0.1em 0.7em #898989;
+      padding: 10px;
+      background: #FFC900;
+      display: flex;
+      flex-flow: row nowrap;
+      height: 120px;
 
-      // .fa {
-      //   position: absolute;
-      //   color: #dc3545;
-      //   top: 5px;
-      //   right: 5px;
-      // }
-      
-      // &::after {
-      //   content: "\f1f8";
-      //   position: absolute;
-      //   font-family: FontAwesome;
-      //   top: 15px;
-      //   padding: 5px;
-      //   // background: var(--red);
-      //   color: #dc3545;
-      // }
-      
-      // &:hover {
-      //   box-shadow: 0.1em 0.1em 0.7em #505050;
-      //   border: 2px solid #0d6efd;
-      //   cursor: pointer;
-      // }
-      
-      .card-header {
-        background: #FFC900;
-
-        .card-header-title {
-          color: #274B80;
-        }
+      @media (max-width: 400px) {
+        height: 110px;
       }
+      
+      .card-info {
+        flex: 1;
+        display: flex;
+        flex-flow: column nowrap;
+        
+        .card-info__header {
+          flex: 1;
 
-      .card-content {
-        background: #F9D962;
+          .card-info__header--text {
+            color: #274B80;
+            font-weight: bold;
+            text-transform: capitalize;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-align: left !important;
+            -webkit-line-clamp: 1 !important;
 
-        .content {
-          text-align: center;
-          color: #274B80;
-
-          // .fa {
-          //   position: absolute;
-          //   color: #dc3545;
-          //   top: 5px;
-          //   right: 5px;
-          // }
-        }
-      }
-
-      .card-footer {
-        background: #FFC900;
-        border-top: 0px;
-        padding: 10px;
-        text-align: center;
-
-        .card-footer-title {
-          color: #274B80;
-          font-weight: bold;
-          text-transform: capitalize;
-          text-decoration: unset;
-          display: flex;
-          // flex-flow: column;
-          // align-items: flex-start;
-          justify-content: space-between;
-        }
-
-        .button-container {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          grid-gap: 5px;
-
-          a {
-            width: 100%;
-            color: unset;
+            @media (max-width: 400px) {
+              font-size: 12px;
+            }
           }
 
+          .card-info__header--tag {
+            width: fit-content;
+            text-transform: capitalize;
+            
+            @media (max-width: 400px) {
+              padding: 4px 6px;
+            }
+
+            label {
+              @media (max-width: 400px) {
+                font-size: 11px;
+              }
+            }
+          }
+        }
+
+        .card-info__action {
           .btn {
-            width: inherit;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+
+            @media (max-width: 480px) {
+              padding: 2px 7px;
+            }
           }
+        }
+      }
+      
+      img {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        width: 100px;
+        height: 100px;
+
+        @media (max-width: 400px) {
+          width: 80px;
+          height: 80px;
         }
       }
     }
   }
-
 
   .empty-message {
     text-align: center;

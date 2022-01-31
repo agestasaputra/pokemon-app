@@ -1,74 +1,206 @@
-.container-detail {
-  min-height: inherit;
+// .container-detail {
+//   min-height: inherit;
 
-  .info-img {
-    text-align: center;
+//   .info-img {
+//     text-align: center;
+//   }
+
+//   .accordion {
+//     .accordion-item {
+
+//       .accordion-header {
+//         .accordion-button {
+//           background-color: #274B80;
+//           color: #FFF89A;
+//           display: flex;
+//           justify-content: space-between;
+//           font-weight: bold;
+  
+//           &.collapsed {
+//             .fa-chevron-down {
+//               transform: rotate(180deg);
+//               -webkit-transform: rotate(180deg);
+//               -moz-transform: rotate(180deg);
+//               -ms-transform: rotate(180deg);
+//               -o-transform: rotate(180deg);
+//               transition: transform .2s ease-in-out;
+//               -webkit-transition: transform .2s ease-in-out;
+//               -moz-transition: transform .2s ease-in-out;
+//               -ms-transition: transform .2s ease-in-out;
+//               -o-transition: transform .2s ease-in-out;
+//             }
+//           }
+  
+//           &:after {
+//             background-image: unset;
+//             content: unset;
+//           }
+//         }
+//       }
+
+//       .accordion-collapse {
+//         .accordion-body {
+//           .info-stats__detail-title {
+//             display: flex;
+//             justify-content: space-between;
+//             font-weight: bold;
+//             color: #274b80;
+
+//             .info-stats__detail-title__left {
+//               text-transform: capitalize;
+//             }
+//           }
+
+//           .badge {
+//             margin-right: 5px;
+//             padding: 8px 10px;
+//             font-size: 15px;
+//             text-transform: capitalize;
+
+//             &:last-child {
+//               margin: 0px;
+//             }
+//           }
+
+//           .list-group-item {
+//             margin-right: 5px;
+//             padding: 8px 10px;
+//             font-size: 15px;
+//             text-transform: capitalize;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
+
+.container-detail {
+  .toast-container {
+    z-index: 999;
+
+    .toast-body {
+      text-align: center;
+    }
   }
 
-  .accordion {
-    .accordion-item {
+  .img-pokemon {
+    position: absolute;
+    top: 70px;
+    left: 34%;
+    z-index: 99;
+    width: 35vw;
+    max-height: 160px;
+  }
 
-      .accordion-header {
-        .accordion-button {
-          background-color: #274B80;
-          color: #FFF89A;
-          display: flex;
-          justify-content: space-between;
-          font-weight: bold;
-  
-          &.collapsed {
-            .fa-chevron-down {
-              transform: rotate(180deg);
-              -webkit-transform: rotate(180deg);
-              -moz-transform: rotate(180deg);
-              -ms-transform: rotate(180deg);
-              -o-transform: rotate(180deg);
-              transition: transform .2s ease-in-out;
-              -webkit-transition: transform .2s ease-in-out;
-              -moz-transition: transform .2s ease-in-out;
-              -ms-transition: transform .2s ease-in-out;
-              -o-transition: transform .2s ease-in-out;
-            }
+  .card {
+    margin-top: 90px;
+    background: #FFC900;
+    padding: 20px;
+
+    @media (max-width: 400px) {
+      padding: 10px;
+    }
+
+    .card-header {
+      background: unset;
+      border: unset;
+      padding: 0px;
+
+      .card-header__title {
+        color: #274B80;
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: bold;
+        margin: 55px 0px 8px 0px !important;
+      }
+
+      .progress {
+        width: 50%;
+        height: 10px;
+        margin: 0px auto;
+      }
+
+      .card-header__desc {
+        color: #274B80;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 5px !important;
+      }
+
+      .card-header__button {
+        margin: 20px auto 30px auto;
+        padding: 2px 20px;
+        display: block;
+        border-radius: 2em;
+        -webkit-border-radius: 2em;
+        -moz-border-radius: 2em;
+        -ms-border-radius: 2em;
+        -o-border-radius: 2em;
+      }
+    }
+
+    .card-content {
+      .card-content__desc {
+        display: flex;
+        flex-flow: row nowrap;
+        padding-bottom: 20px;
+
+        .desc-item {
+          flex: 1;
+          text-align: center;
+          border-right: 1px solid #274b802e;
+
+          &:last-child {
+            border-right: unset;
           }
-  
-          &:after {
-            background-image: unset;
-            content: unset;
+
+          .desc-item__title {
+            color: #274B80;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: capitalize;
+          }
+
+          .desc-item__desc {
+            color: #274B80;
+            font-size: 10px;
+            text-transform: capitalize;
           }
         }
       }
 
-      .accordion-collapse {
-        .accordion-body {
-          // background: #FFC900;
+      .card-content__footer {
+        display: flex;
+        flex-flow: row nowrap;
+        padding-top: 20px;
+        border-top: 1px solid #274b802e;
 
-          .info-stats__detail-title {
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
-            color: #274b80;
+        .desc-item {
+          flex: 1;
+          text-align: center;
+          border-right: 1px solid #274b802e;
 
-            .info-stats__detail-title__left {
-              text-transform: capitalize;
-            }
+          &:last-child {
+            border-right: unset;
           }
 
-          .badge {
-            margin-right: 5px;
-            padding: 8px 10px;
-            font-size: 15px;
-            text-transform: capitalize;
-
-            &:last-child {
-              margin: 0px;
-            }
+          .progress {
+            width: 70%;
+            height: 10px;
+            margin: 0px auto;
           }
 
-          .list-group-item {
-            margin-right: 5px;
-            padding: 8px 10px;
-            font-size: 15px;
+          .desc-item__title {
+            color: #274B80;
+            font-size: 16px;
             text-transform: capitalize;
+          }
+
+          .desc-item__desc {
+            color: #274B80;
+            font-size: 10px;
+            text-transform: uppercase;
           }
         }
       }
