@@ -15,6 +15,7 @@ const Detail = ({ location }) => {
   const [form, setForm] = React.useState({
     name: ""
   });
+  const formNameRef = React.useRef();
 
   React.useEffect(() => {
     onFetchDetailPokemon()
@@ -106,6 +107,9 @@ const Detail = ({ location }) => {
       ...modal,
       show: true,
     })
+    setTimeout(() => {
+      formNameRef.current.focus()
+    }, 100)
   }
 
   function onModalSaved(event) {
@@ -257,45 +261,37 @@ const Detail = ({ location }) => {
         centered
       >
         <Form>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-            <Form.Group className="mb-3" controlId="formEmail">
-              <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Ex: Bone" value={form.name} onChange={(event) => setForm({
-                name: event.target.value
-              })} />
-              {/* <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text> */}
-            </Form.Group>
-            {/* <Button variant="primary" >
-              Submit
-            </Button> */}
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary" disabled={modal.loading} onClick={onModalClosed}>
-            Close
-          </Button>
-          <Button variant="primary" type="submit" disabled={form.name.length === 0 || modal.loading} onClick={onModalSaved}>
-            {
-              modal.loading ? (
-                <Spinner
-                  as="span"
-                  animation="border"
-                  size="sm"
-                  role="status"
-                  aria-hidden="true"
-                />
-              ) : (
-                <React.Fragment>Save</React.Fragment>
-              )
-            }
-          </Button>
-        </Modal.Footer>
+          <Modal.Header closeButton>
+            <Modal.Title>Pokemon Alias Name</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+              <Form.Group className="mb-3" controlId="formEmail">
+                <Form.Label>Name</Form.Label>
+                <Form.Control ref={formNameRef} type="text" placeholder="Ex: Bone" value={form.name} onChange={(event) => setForm({
+                  name: event.target.value
+                })} />
+              </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" disabled={modal.loading} onClick={onModalClosed}>
+              Close
+            </Button>
+            <Button variant="success" type="submit" disabled={form.name.length === 0 || modal.loading} onClick={onModalSaved}>
+              {
+                modal.loading ? (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <React.Fragment>Save</React.Fragment>
+                )
+              }
+            </Button>
+          </Modal.Footer>
         </Form>
       </Modal>
     </div>

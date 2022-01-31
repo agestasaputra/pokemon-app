@@ -5,6 +5,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 20px;
+    
+    @media (max-width: 400px) {
+      grid-gap: 10px;
+    }
 
     a {
       text-decoration: unset;
@@ -24,6 +28,10 @@
       display: flex;
       flex-flow: row nowrap;
       height: 120px;
+
+      @media (max-width: 400px) {
+        height: 100px;
+      }
       
       &:hover {
         box-shadow: 0.1em 0.1em 0.7em #505050;
@@ -43,6 +51,10 @@
           overflow: hidden;
           text-align: left !important;
           -webkit-line-clamp: 1 !important;
+
+          @media (max-width: 400px) {
+            font-size: 12px;
+          }
         }
         .card-desc {
           color: #dc3545;
@@ -52,6 +64,10 @@
           overflow: hidden;
           text-align: left !important;
           -webkit-line-clamp: 1 !important;
+
+          @media (max-width: 400px) {
+            font-size: 11px;
+          }
         }
       }
       
@@ -61,73 +77,19 @@
         bottom: 0px;
         width: 100px;
         height: 100px;
+        
+        @media (max-width: 400px) {
+          width: 80px;
+          height: 80px;
+        }
+        
+        // @media (max-width: 370px) {
+        //   width: 60px;
+        //   height: 60px;
+        // }
       }
-
-      // .card-image {
-      //   img {
-      //     max-width: 90px;
-      //     max-height: 90px;
-      //   }
-      //   // max-width: 20%;
-      // }
-
-      // .card-header {
-      //   background: #FFC900;
-
-      //   .card-header-title {
-      //     color: #274B80;
-      //   }
-      // }
-
-      // .card-content {
-      //   background: #F9D962;
-
-      //   .content {
-      //     text-align: center;
-      //     color: #274B80;
-      //   }
-      // }
-
-      // .card-footer {
-      //   background: #FFC900;
-      //   border-top: 0px;
-      //   padding: 10px;
-      //   text-align: center;
-
-      //   .card-footer-title {
-      //     color: #274B80;
-      //     font-weight: bold;
-      //     text-transform: capitalize;
-      //     text-decoration: unset;
-      //   }
-
-      //   .card-footer-item {
-      //     color: #274B80;
-    
-      //     &.btn-done {
-      //       border-radius: 0em 0em 0em 0.4em;
-      //       -webkit-border-radius: 0em 0em 0em 0.4em;
-      //       -moz-border-radius: 0em 0em 0em 0.4em;
-      //       -ms-border-radius: 0em 0em 0em 0.4em;
-      //       -o-border-radius: 0em 0em 0em 0.4em;
-      //     }
-      //     &.btn-delete {
-      //       border-radius: 0em 0em 0.4em 0em;
-      //       -webkit-border-radius: 0em 0em 0.4em 0em;
-      //       -moz-border-radius: 0em 0em 0.4em 0em;
-      //       -ms-border-radius: 0em 0em 0.4em 0em;
-      //       -o-border-radius: 0em 0em 0.4em 0em;
-      //     }
-      //     &:hover {
-      //       cursor: pointer;
-      //       text-decoration: underline;
-      //       color: #274B80
-      //     }
-      //   } 
-      // }
     }
   }
-
 
   .empty-message {
     text-align: center;

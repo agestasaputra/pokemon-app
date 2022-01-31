@@ -14,12 +14,16 @@ nav {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    box-shadow: 0px -1px 7px -1px #00000033;
+    box-shadow: 0px 3px 8px -1px #00000094;
     
     .container-navbar__title {
       flex: 1;
       text-align: center;
       color: #274B80;
+
+      a {
+        text-decoration: unset;
+      }
       
       strong {
         color: #274B80;
@@ -36,6 +40,12 @@ nav {
       
       a {
         color: #274B80;
+      }
+    }
+    .container-navbar__icon-right {
+      img {
+        width: 28px;
+        height: 28px;
       }
     }
   }

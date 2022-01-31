@@ -1,14 +1,10 @@
 import React from "react"
 import './styles.scss'
-// import moment from 'moment'
-// import { useSelector } from "react-redux"
-// import { doneTodo, undoneTodo, deleteTodo, fetchAllTodo } from "redux/actions/Todos"
 import axiosInstance from "config/services"
 import { NavLink } from "react-router-dom"
 import { Spinner, Button } from "react-bootstrap"
 
 const Landing = ({ state, dispatch }) => {
-  // const store = useSelector(state => state)
 
   const [pokemon, setPokemon] = React.useState({
     next: '',
@@ -16,7 +12,6 @@ const Landing = ({ state, dispatch }) => {
     loading: true,
   })
   const [loadingLoadMore, setLoadingLoadMore] = React.useState(false)
-  const [ownedTotal] = React.useState(0)
 
   React.useEffect(() => {
     onFetchAllPokemon()
@@ -142,18 +137,18 @@ const Landing = ({ state, dispatch }) => {
           </div>
         ) 
       }
-      <span className="list mb-4">
+      <span className="list mb-3">
         {
           pokemon.list.length > 0 && (
             pokemon.list.map((data, key) => (
               <NavLink to={`/${key+1}`} onClick={onCardClicked} key={key}>
                 <div className="card" >
                   <div className="card-info">
-                    <h5 className="card-info__title">
+                    <h6 className="card-info__title">
                       { data.name }
-                    </h5>
+                    </h6>
                     <p className="card-desc">
-                      Owned: { data.owned }
+                      Owned: <strong>{ data.owned }</strong>
                     </p>
                   </div>
                   <img src={data.image} alt={data.name} />

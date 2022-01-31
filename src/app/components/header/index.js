@@ -30,20 +30,26 @@ const Header = ({ state, dispatch, location }) => {
     <nav>
       <div className="container-navbar">
         <div className="container-navbar__icon-left">
-          {
+          {/* {
             !(location.pathname === '/' || location.pathname === '/pokemon-app/') && (
               <i className="fa fa-lg fa-arrow-circle-left" onClick={onBackClicked} />
             )
-          }
+          } */}
+          <NavLink to={"/"} onClick={onMyPokemonClicked}>
+            <i className="fa fa-2x fa-home" />
+          </NavLink>
         </div>
         <div className="container-navbar__title">
+          {/* <NavLink to={"/"} onClick={onMyPokemonClicked}> */}
           <strong>{ state.header.title }</strong>
+          {/* </NavLink> */}
         </div>
         <div className="container-navbar__icon-right">
           {
             location.pathname !== '/create' && (
               <NavLink to={"/my-pokemon"} onClick={onMyPokemonClicked}>
-                <i className="fa fa-lg fa-heart" />
+                {/* <i className="fa fa-lg fa-heart" /> */}
+                <img src={process.env.PUBLIC_URL + '/pokeball.ico'} alt="pokeball" />
               </NavLink>
             )
           }
