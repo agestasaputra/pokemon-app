@@ -129,6 +129,7 @@ const Detail = ({ location }) => {
         name: pokemon.data.name,
         customName: form.name,
         id: pokemon.data.id,
+        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon${location.pathname}.png`,
         sprites: pokemon.data.sprites
       }
     ]
@@ -159,7 +160,7 @@ const Detail = ({ location }) => {
       {
         Object.keys(pokemon.data).length > 0 && (
           <React.Fragment>
-            <div className="info-img">
+            <div className="info-img">  
               <img src={pokemon.data.sprites.front_default} alt={pokemon.data.name} />
             </div>
             <Accordion defaultActiveKey="0">

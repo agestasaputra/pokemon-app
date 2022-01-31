@@ -9,11 +9,22 @@
     a {
       text-decoration: unset;
     }
- 
+    
     .card {
       overflow: auto;
       border: 2px solid #FFC900;
+      border-radius: 1em !important;
+      -webkit-border-radius: 1em !important;
+      -moz-border-radius: 1em !important;
+      -ms-border-radius: 1em !important;
+      -o-border-radius: 1em !important;
       box-shadow: 0.1em 0.1em 0.7em #898989;
+      padding: 10px;
+      background: #FFC900;
+      display: flex;
+      flex-flow: row nowrap;
+      // justify-content: space-between;
+      height: 120px;
       
       &:hover {
         box-shadow: 0.1em 0.1em 0.7em #505050;
@@ -21,60 +32,98 @@
         cursor: pointer;
       }
       
-      .card-header {
-        background: #FFC900;
-
-        .card-header-title {
-          color: #274B80;
-        }
-      }
-
-      .card-content {
-        background: #F9D962;
-
-        .content {
-          text-align: center;
-          color: #274B80;
-        }
-      }
-
-      .card-footer {
-        background: #FFC900;
-        border-top: 0px;
-        padding: 10px;
-        text-align: center;
-
-        .card-footer-title {
+      .card-info {
+        flex: 1;
+        
+        .card-info__title {
           color: #274B80;
           font-weight: bold;
           text-transform: capitalize;
-          text-decoration: unset;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-align: left !important;
+          -webkit-line-clamp: 1 !important;
         }
-
-        .card-footer-item {
-          color: #274B80;
-    
-          &.btn-done {
-            border-radius: 0em 0em 0em 0.4em;
-            -webkit-border-radius: 0em 0em 0em 0.4em;
-            -moz-border-radius: 0em 0em 0em 0.4em;
-            -ms-border-radius: 0em 0em 0em 0.4em;
-            -o-border-radius: 0em 0em 0em 0.4em;
-          }
-          &.btn-delete {
-            border-radius: 0em 0em 0.4em 0em;
-            -webkit-border-radius: 0em 0em 0.4em 0em;
-            -moz-border-radius: 0em 0em 0.4em 0em;
-            -ms-border-radius: 0em 0em 0.4em 0em;
-            -o-border-radius: 0em 0em 0.4em 0em;
-          }
-          &:hover {
-            cursor: pointer;
-            text-decoration: underline;
-            color: #274B80
-          }
-        } 
+        .card-desc {
+          color: #dc3545;
+          text-transform: capitalize;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-align: left !important;
+          -webkit-line-clamp: 1 !important;
+        }
       }
+      img {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        width: 100px;
+        height: 100px;
+      }
+      // .card-image {
+      //   img {
+      //     max-width: 90px;
+      //     max-height: 90px;
+      //   }
+      //   // max-width: 20%;
+      // }
+
+      // .card-header {
+      //   background: #FFC900;
+
+      //   .card-header-title {
+      //     color: #274B80;
+      //   }
+      // }
+
+      // .card-content {
+      //   background: #F9D962;
+
+      //   .content {
+      //     text-align: center;
+      //     color: #274B80;
+      //   }
+      // }
+
+      // .card-footer {
+      //   background: #FFC900;
+      //   border-top: 0px;
+      //   padding: 10px;
+      //   text-align: center;
+
+      //   .card-footer-title {
+      //     color: #274B80;
+      //     font-weight: bold;
+      //     text-transform: capitalize;
+      //     text-decoration: unset;
+      //   }
+
+      //   .card-footer-item {
+      //     color: #274B80;
+    
+      //     &.btn-done {
+      //       border-radius: 0em 0em 0em 0.4em;
+      //       -webkit-border-radius: 0em 0em 0em 0.4em;
+      //       -moz-border-radius: 0em 0em 0em 0.4em;
+      //       -ms-border-radius: 0em 0em 0em 0.4em;
+      //       -o-border-radius: 0em 0em 0em 0.4em;
+      //     }
+      //     &.btn-delete {
+      //       border-radius: 0em 0em 0.4em 0em;
+      //       -webkit-border-radius: 0em 0em 0.4em 0em;
+      //       -moz-border-radius: 0em 0em 0.4em 0em;
+      //       -ms-border-radius: 0em 0em 0.4em 0em;
+      //       -o-border-radius: 0em 0em 0.4em 0em;
+      //     }
+      //     &:hover {
+      //       cursor: pointer;
+      //       text-decoration: underline;
+      //       color: #274B80
+      //     }
+      //   } 
+      // }
     }
   }
 

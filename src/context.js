@@ -21,8 +21,6 @@ const initialState = {
 const reducer = (state, action) => {
   switch (action.type) {
     case "header":
-      console.log("state:", state);
-      console.log("action.type:", action.type);
       return {
         ...state,
         header: action.data

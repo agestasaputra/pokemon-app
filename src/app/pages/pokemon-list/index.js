@@ -43,7 +43,7 @@ const PokemonList = ({ state, dispatch }) => {
   }
 
   return (
-    <div className="container-landing">
+    <div className="container-my-pokemon">
       { 
         pokemon.loading && (
           <div className="loading-section text-center">
