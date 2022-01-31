@@ -1,7 +1,7 @@
 import React from "react"
 import axiosInstance from "config/services"
 import './styles.scss'
-import { ProgressBar, Spinner, /* Accordion, Badge, ListGroup, */ Button, Modal, Form } from "react-bootstrap"
+import { ProgressBar, Spinner, Button, Modal, Form, ToastContainer, Toast } from "react-bootstrap"
 
 const Detail = ({ location }) => {
   const [pokemon, setPokemon] = React.useState({
@@ -15,13 +15,14 @@ const Detail = ({ location }) => {
   const [form, setForm] = React.useState({
     name: ""
   });
+  const [toast, setToast] = React.useState(false);
   const formNameRef = React.useRef();
 
   React.useEffect(() => {
     onFetchDetailPokemon()
   }, [])
   
-  async function onFetchDetailPokemon(data, from) {
+  async function onFetchDetailPokemon() {
     try {
       const res = await axiosInstance.get(`/pokemon${location.pathname}`);
       setPokemon({
@@ -29,7 +30,6 @@ const Detail = ({ location }) => {
         data: res.data,
         loading: false
       })
-      console.log("res.data:", res.data)
     } catch (error) {
       alert(`Error - ${error.message}`)
       setPokemon({
@@ -38,62 +38,6 @@ const Detail = ({ location }) => {
       })
       throw error;
     }
-  }
-
-  function onGetProgressBarVariant(name) {
-    let result = "";
-    switch (name) {
-      case "hp":
-        result = "primary";
-        break;
-      case "attack":
-        result = "danger";
-        break;
-      case "defense":
-        result = "success";
-        break;
-      case "special-attack":
-        result = "danger";
-        break;
-      case "special-defense":
-        result = "success";
-        break;
-      case "speed":
-        result = "info";
-        break;
-      default:
-        result = "primary";
-        break;
-    }
-    return result;
-  }
-  
-  function onGetBadgeVariant(name) {
-    let result = "";
-    switch (name) {
-      case "bug":
-        result = "danger";
-        break;
-      case "fire":
-        result = "danger";
-        break;
-      case "water":
-        result = "primary";
-        break;
-      case "flying":
-        result = "info";
-        break;
-      case "grass":
-        result = "success";
-        break;
-      case "poison":
-        result = "warning";
-        break;
-      default:
-        result = "primary";
-        break;
-    }
-    return result;
   }
 
   function onModalClosed() { 
@@ -139,12 +83,20 @@ const Detail = ({ location }) => {
         sprites: pokemon.data.sprites
       }
     ]
-    console.log("payload:", payload)
     localStorage.setItem("pokemon", JSON.stringify(payload))
     
     setTimeout(() => {
       onModalClosed()
+      onToggleToast(true)
     }, 500)
+
+    setTimeout(() => {
+      onToggleToast(false)
+    }, 3000)
+  }
+
+  function onToggleToast(value) {
+    setToast(value)
   }
 
   function onFormReset() {
@@ -220,98 +172,6 @@ const Detail = ({ location }) => {
         )
       }
 
-      {/* {
-        Object.keys(pokemon.data).length > 0 && (
-          <React.Fragment>
-            <div className="info-img">  
-              <img src={pokemon.data.sprites.front_default} alt={pokemon.data.name} />
-            </div>
-            <Accordion defaultActiveKey="0">
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>
-                  <span>
-                    Statistics
-                  </span>
-                  <span>
-                    <i className="fa fa-chevron-down" />
-                  </span>
-                </Accordion.Header>
-                <Accordion.Body>
-                  {
-                    pokemon.data.stats.length > 0 ? pokemon.data.stats.map((poke, key) => (
-                      <React.Fragment key={key}>
-                          <span className="info-stats__detail-title">
-                            <span className="info-stats__detail-title__left">
-                            { poke.stat.name.replace(/-/g, ' ') }
-                            </span>
-                            <span className="info-stats__detail-title__right">
-                            { poke.base_stat }
-                            </span>
-                          </span>
-                          <ProgressBar className="progress mb-2" variant={onGetProgressBarVariant(poke.stat.name)} now={100} />
-                        </React.Fragment>
-                    )) : (
-                      <div> Empty Statistics! </div>
-                    )
-                  }
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>
-                  <span>
-                    Types
-                  </span>
-                  <span>
-                    <i className="fa fa-chevron-down" />
-                  </span>
-                </Accordion.Header>
-                <Accordion.Body>
-                {
-                  pokemon.data.types.length > 0 ? pokemon.data.types.map((poke, key) => (
-                    <Badge key={key} pill bg={onGetBadgeVariant(poke.type.name)}>
-                      { poke.type.name }
-                    </Badge>
-                  )) : (
-                    <div> Empty Types! </div>
-                  )
-                }
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="2">
-                <Accordion.Header>
-                  <span>
-                    Moves
-                  </span>
-                  <span>
-                    <i className="fa fa-chevron-down" />
-                  </span>
-                </Accordion.Header>
-                <Accordion.Body>
-                  <ListGroup>
-                  {
-                    pokemon.data.moves.length > 0 ? pokemon.data.moves.map((poke, key) => (
-                        <ListGroup.Item key={key} variant="primary" > { poke.move.name.replace(/-/g, ' ') } </ListGroup.Item>
-                    )) : (
-                      <div> Empty Types! </div>
-                    )
-                  }
-                  </ListGroup>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-            <div className="d-grid mt-4">
-              <Button 
-                variant="success" 
-                size="block"
-                onClick={onModalShowed}
-              >
-                Catch
-              </Button>
-            </div>
-          </React.Fragment>
-        )
-      } */}
-
       <Modal
         show={modal.show} 
         onHide={onModalClosed}
@@ -352,6 +212,17 @@ const Detail = ({ location }) => {
           </Modal.Footer>
         </Form>
       </Modal>
+      
+      <ToastContainer position="top-center">
+        <Toast show={toast} onClose={() => onToggleToast(false)}>
+          <Toast.Header>
+            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+            <strong className="me-auto">Notification</strong>
+            <small>3 seconds ago</small>
+          </Toast.Header>
+          <Toast.Body><strong>Well done</strong>, Pokemon has been added!</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </div>
   )
 }

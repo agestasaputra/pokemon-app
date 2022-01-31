@@ -76,6 +76,14 @@
 
 
 .container-detail {
+  .toast-container {
+    z-index: 999;
+
+    .toast-body {
+      text-align: center;
+    }
+  }
+
   .img-pokemon {
     position: absolute;
     top: 70px;

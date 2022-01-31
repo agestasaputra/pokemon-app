@@ -1,6 +1,14 @@
 .container-my-pokemon {
   min-height: inherit;
 
+  .toast-container {
+    z-index: 999;
+
+    .toast-body {
+      text-align: center;
+    }
+  }
+  
   .list {
     display: grid;
     grid-template-columns: 1fr 1fr;

@@ -2,7 +2,7 @@ import React from "react"
 import './styles.scss'
 // import axiosInstance from "config/services"
 import { NavLink } from "react-router-dom"
-import { Spinner, Badge, Button, Modal } from "react-bootstrap"
+import { Spinner, Badge, Button, Modal, ToastContainer, Toast  } from "react-bootstrap"
 
 const PokemonList = ({ state, dispatch }) => {
   const [pokemon, setPokemon] = React.useState({
@@ -15,19 +15,18 @@ const PokemonList = ({ state, dispatch }) => {
     show: false,
     loading: false
   });
+  const [toast, setToast] = React.useState(false);
 
   React.useEffect(() => {
     onLocalStorageChecked();
   }, [])
 
   function onLocalStorageChecked() {
-    console.log("onLocalStorageChecked!");
     setPokemon({
       ...pokemon,
       loading: true
     })
     const data = localStorage.getItem("pokemon");
-    console.log("data:", JSON.parse(data))
     setTimeout(() => {
       setPokemon({
         ...pokemon,
@@ -66,7 +65,7 @@ const PokemonList = ({ state, dispatch }) => {
     })
   }
 
-  function onModalSaved() {
+  function onModalRemove() {
     setModal({
       ...modal,
       loading: true
@@ -75,14 +74,23 @@ const PokemonList = ({ state, dispatch }) => {
     const indexLocalStorageTarget = dataLocalStorage.findIndex((item) => item.customName === data.customName)
 
     if (indexLocalStorageTarget > -1) {
-      const newDataLocalStorage = dataLocalStorage.splice(0, indexLocalStorageTarget)
-      localStorage.setItem("pokemon", JSON.stringify(newDataLocalStorage))
+      dataLocalStorage.splice(indexLocalStorageTarget, 1)
+      localStorage.setItem("pokemon", JSON.stringify(dataLocalStorage))
       onLocalStorageChecked();
     }
 
     setTimeout(() => {
       onModalClosed()
+      onToggleToast(true)
     }, 500)
+    
+    setTimeout(() => {
+      onToggleToast(false)
+    }, 3000)
+  }
+
+  function onToggleToast(value) {
+    setToast(value)
   }
 
   return (
@@ -149,7 +157,7 @@ const PokemonList = ({ state, dispatch }) => {
           <Button variant="primary" disabled={modal.loading} onClick={onModalClosed}>
             Close
           </Button>
-          <Button variant="danger" type="submit" disabled={modal.loading} onClick={onModalSaved}>
+          <Button variant="danger" type="submit" disabled={modal.loading} onClick={onModalRemove}>
             {
               modal.loading ? (
                 <Spinner
@@ -160,14 +168,24 @@ const PokemonList = ({ state, dispatch }) => {
                   aria-hidden="true"
                 />
               ) : (
-                <React.Fragment>Save</React.Fragment>
+                <React.Fragment>Remove</React.Fragment>
               )
             }
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
 
+      <ToastContainer position="top-center">
+        <Toast show={toast} onClose={() => onToggleToast(false)}>
+          <Toast.Header>
+            <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+            <strong className="me-auto">Notification</strong>
+            <small>3 seconds ago</small>
+          </Toast.Header>
+          <Toast.Body><strong>Well done</strong>, Pokemon has been removed!</Toast.Body>
+        </Toast>
+      </ToastContainer>
+    </div>
   )
 }
 

@@ -17,10 +17,6 @@ const Create = () => {
   function onSubmit(event) {
     try {
       event.preventDefault();
-      console.log("onSubmit!");
-      // const payload = [...store.todo.datas, form];
-      // console.log("payload:", payload);
-      // postTodo(payload)
       onReset();
     } catch (error) {
       alert(`Error! ${error.message}`)
