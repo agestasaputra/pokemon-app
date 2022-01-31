@@ -1,7 +1,7 @@
 import React from "react"
 import axiosInstance from "config/services"
 import './styles.scss'
-import { ProgressBar, Spinner, Accordion, Badge, ListGroup, Button, Modal, Form } from "react-bootstrap"
+import { ProgressBar, Spinner, /* Accordion, Badge, ListGroup, */ Button, Modal, Form } from "react-bootstrap"
 
 const Detail = ({ location }) => {
   const [pokemon, setPokemon] = React.useState({
@@ -26,8 +26,10 @@ const Detail = ({ location }) => {
       const res = await axiosInstance.get(`/pokemon${location.pathname}`);
       setPokemon({
         ...pokemon,
-        data: res.data
+        data: res.data,
+        loading: false
       })
+      console.log("res.data:", res.data)
     } catch (error) {
       alert(`Error - ${error.message}`)
       setPokemon({
@@ -162,6 +164,63 @@ const Detail = ({ location }) => {
         ) 
       }
       {
+        (Object.keys(pokemon.data).length > 0 && !pokemon.loading) && (
+          <React.Fragment>
+            <img src={pokemon.data.sprites.other.dream_world.front_default} alt={pokemon.data.name} className="img-pokemon"/>
+            <div className="card">
+              <div className="card-header">
+                <h6 className="card-header__title"> { pokemon.data.name } </h6>
+                <ProgressBar className="progress mb-1" variant="success" now={100} width={50} />
+                <h6 className="card-header__desc"> { pokemon.data.stats[0].stat.name } { pokemon.data.stats[0].base_stat }/{ pokemon.data.stats[0].base_stat } </h6>
+                <Button 
+                  className="card-header__button"
+                  variant="primary" 
+                  size="block"
+                  onClick={onModalShowed}
+                >
+                  Catch
+                </Button>
+              </div>
+              <div className="card-content">
+                <div className="card-content__desc">
+                  <div className="desc-item">
+                    <h6 className="desc-item__title">
+                      {
+                        pokemon.data.types.length > 1 ? 
+                        `${pokemon.data.types[0].type.name} / ${pokemon.data.types[1].type.name}` :
+                        pokemon.data.types[0].type.name
+                      }
+                    </h6>
+                    <p className="desc-item__desc"> types </p>
+                  </div>
+                  <div className="desc-item">
+                    <h6 className="desc-item__title">{ pokemon.data.weight }kg</h6>
+                    <p className="desc-item__desc">weight</p>
+                  </div>
+                  <div className="desc-item">
+                    <h6 className="desc-item__title">{ pokemon.data.height }m </h6>
+                    <p className="desc-item__desc">height</p>
+                  </div>
+                </div>
+                <div className="card-content__footer">
+                  <div className="desc-item">
+                    <ProgressBar className="progress mb-2" variant="primary" now={100} width={50} />
+                    <h6 className="desc-item__title">ATK { pokemon.data.stats[1].base_stat }/{ pokemon.data.stats[1].base_stat }</h6>
+                    {/* <p className="desc-item__desc">attack</p> */}
+                  </div>
+                  <div className="desc-item">
+                    <ProgressBar className="progress mb-2" variant="danger" now={100} width={50} />
+                    <h6 className="desc-item__title">DEF { pokemon.data.stats[2].base_stat }/{ pokemon.data.stats[2].base_stat }</h6>
+                    {/* <p className="desc-item__desc">defense</p> */}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </React.Fragment>
+        )
+      }
+
+      {/* {
         Object.keys(pokemon.data).length > 0 && (
           <React.Fragment>
             <div className="info-img">  
@@ -244,7 +303,6 @@ const Detail = ({ location }) => {
               <Button 
                 variant="success" 
                 size="block"
-                // disabled={loadingLoadMore}
                 onClick={onModalShowed}
               >
                 Catch
@@ -252,7 +310,7 @@ const Detail = ({ location }) => {
             </div>
           </React.Fragment>
         )
-      }
+      } */}
 
       <Modal
         show={modal.show} 

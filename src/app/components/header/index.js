@@ -1,20 +1,20 @@
 import React from 'react'
 import './index.scss'
-import { NavLink, /* useHistory */ } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 const Header = ({ state, dispatch, location }) => {
-  // const history = useHistory()
+  const history = useHistory()
 
-  // function onBackClicked() {
-  //   dispatch({
-  //     type: "header",
-  //     data: {
-  //       ...state.header,
-  //       title: 'Pokemon App'
-  //     }
-  //   });
-  //   history.goBack()
-  // }
+  function onBackClicked() {
+    dispatch({
+      type: "header",
+      data: {
+        ...state.header,
+        title: 'Pokemon App'
+      }
+    });
+    history.goBack()
+  }
 
   function onMyPokemonClicked() {
     dispatch({
@@ -30,14 +30,14 @@ const Header = ({ state, dispatch, location }) => {
     <nav>
       <div className="container-navbar">
         <div className="container-navbar__icon-left">
-          {/* {
+          {
             !(location.pathname === '/' || location.pathname === '/pokemon-app/') && (
               <i className="fa fa-lg fa-arrow-circle-left" onClick={onBackClicked} />
             )
-          } */}
-          <NavLink to={"/"} onClick={onMyPokemonClicked}>
+          }
+          {/* <NavLink to={"/"}>
             <i className="fa fa-2x fa-home" />
-          </NavLink>
+          </NavLink> */}
         </div>
         <div className="container-navbar__title">
           {/* <NavLink to={"/"} onClick={onMyPokemonClicked}> */}
