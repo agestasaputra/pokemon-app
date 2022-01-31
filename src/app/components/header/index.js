@@ -1,20 +1,20 @@
 import React from 'react'
 import './index.scss'
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, /* useHistory */ } from "react-router-dom";
 
 const Header = ({ state, dispatch, location }) => {
-  const history = useHistory()
+  // const history = useHistory()
 
-  function onBackClicked() {
-    dispatch({
-      type: "header",
-      data: {
-        ...state.header,
-        title: 'Pokemon App'
-      }
-    });
-    history.goBack()
-  }
+  // function onBackClicked() {
+  //   dispatch({
+  //     type: "header",
+  //     data: {
+  //       ...state.header,
+  //       title: 'Pokemon App'
+  //     }
+  //   });
+  //   history.goBack()
+  // }
 
   function onMyPokemonClicked() {
     dispatch({
