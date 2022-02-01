@@ -10,4 +10,4 @@ How to run this project:
 2. Yarn start or npm start
 
 ## Live Demo
-https://agestasaputra.github.io/pokemon-app/
+https://agesta-pokemon.netlify.app/
