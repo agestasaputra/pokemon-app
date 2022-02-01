@@ -63,15 +63,14 @@ const Detail = ({ location }) => {
 
   function onModalSaved(event) {
     event.preventDefault();
+    setModal({
+      ...modal,
+      loading: true
+    })
 
     const result = Math.random() < 0.5;
 
     if (result) {
-      setModal({
-        ...modal,
-        loading: true
-      })
-  
       let payload = []
   
       if (localStorage.getItem("pokemon")) {
@@ -202,7 +201,7 @@ const Detail = ({ location }) => {
               </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" disabled={modal.loading} onClick={onModalClosed}>
+            <Button variant="danger" disabled={modal.loading} onClick={onModalClosed}>
               Close
             </Button>
             <Button variant="success" type="submit" disabled={form.name.length === 0 || modal.loading} onClick={onModalSaved}>

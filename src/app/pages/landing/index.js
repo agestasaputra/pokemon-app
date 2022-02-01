@@ -9,7 +9,7 @@ const Landing = ({ state, dispatch }) => {
   const [pokemon, setPokemon] = React.useState({
     next: '',
     list: [],
-    loading: true,
+    loading: false,
   })
   const [loadingLoadMore, setLoadingLoadMore] = React.useState(false)
 
@@ -163,6 +163,7 @@ const Landing = ({ state, dispatch }) => {
         pokemon.list.length > 0 && (
           <div className="d-grid">
             <Button 
+              data-testid="buttonLoadMore"
               variant="primary" 
               size="block"
               disabled={loadingLoadMore}

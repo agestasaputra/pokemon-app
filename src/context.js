@@ -31,7 +31,6 @@ const reducer = (state, action) => {
         landing: action.data
       };
     default:
-      console.log("error case reducer on root context");
       throw new Error();
   }
 };

@@ -5,8 +5,6 @@ const axiosInstance = axios.create({
   timeout: 5000,
   headers: {
     'X-Custom-Header': 'foobar'
-    // 'Accept': 'application/vnd.GitHub.v3+json',
-    //'Authorization': 'token <your-token-here> -- https://docs.GitHub.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token'
   }
 });
 
