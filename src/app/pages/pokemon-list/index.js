@@ -1,6 +1,5 @@
 import React from "react"
 import './styles.scss'
-// import axiosInstance from "config/services"
 import { NavLink } from "react-router-dom"
 import { Spinner, Badge, Button, Modal, ToastContainer, Toast  } from "react-bootstrap"
 
@@ -117,8 +116,6 @@ const PokemonList = ({ state, dispatch }) => {
                     </Badge>
                   </div>
                   <div className="card-info__action">
-                    {/* <i className="fa fa-2x fa-info-circle" />
-                    <i className="fa fa-2x fa-trash" onClick={() => {}}/> */}
                     <NavLink to={`/${data.id}`} onClick={onCardClicked}>
                       <Button variant="primary">
                         <i className="fa fa-info-circle" />
@@ -154,8 +151,8 @@ const PokemonList = ({ state, dispatch }) => {
           Are you sure want to delete?          
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" disabled={modal.loading} onClick={onModalClosed}>
-            Close
+          <Button variant="success" disabled={modal.loading} onClick={onModalClosed}>
+            No
           </Button>
           <Button variant="danger" type="submit" disabled={modal.loading} onClick={onModalRemove}>
             {
@@ -168,7 +165,7 @@ const PokemonList = ({ state, dispatch }) => {
                   aria-hidden="true"
                 />
               ) : (
-                <React.Fragment>Remove</React.Fragment>
+                <React.Fragment>Yes</React.Fragment>
               )
             }
           </Button>
@@ -182,7 +179,7 @@ const PokemonList = ({ state, dispatch }) => {
             <strong className="me-auto">Notification</strong>
             <small>3 seconds ago</small>
           </Toast.Header>
-          <Toast.Body><strong>Well done</strong>, Pokemon has been removed!</Toast.Body>
+          <Toast.Body>Well done, Pokemon has been removed!</Toast.Body>
         </Toast>
       </ToastContainer>
     </div>
