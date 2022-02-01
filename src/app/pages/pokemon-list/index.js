@@ -86,7 +86,7 @@ const PokemonList = ({ state, dispatch }) => {
     
     setTimeout(() => {
       onToggleToast(false)
-    }, 3000)
+    }, 5000)
   }
 
   function onToggleToast(value) {

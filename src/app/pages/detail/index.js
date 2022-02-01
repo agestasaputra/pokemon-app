@@ -15,7 +15,10 @@ const Detail = ({ location }) => {
   const [form, setForm] = React.useState({
     name: ""
   });
-  const [toast, setToast] = React.useState(false);
+  const [toast, setToast] = React.useState({
+    show: false,
+    message: ''
+  });
   const formNameRef = React.useRef();
 
   React.useEffect(() => {
@@ -60,43 +63,53 @@ const Detail = ({ location }) => {
 
   function onModalSaved(event) {
     event.preventDefault();
-    setModal({
-      ...modal,
-      loading: true
-    })
 
-    let payload = []
+    const result = Math.random() < 0.5;
 
-    if (localStorage.getItem("pokemon")) {
-      payload = [
-        ...JSON.parse(localStorage.getItem("pokemon")),
-      ];
-    }
-    
-    payload = [
-      ...payload, 
-      {
-        name: pokemon.data.name,
-        customName: form.name,
-        id: pokemon.data.id,
-        image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon${location.pathname}.png`,
-        sprites: pokemon.data.sprites
+    if (result) {
+      setModal({
+        ...modal,
+        loading: true
+      })
+  
+      let payload = []
+  
+      if (localStorage.getItem("pokemon")) {
+        payload = [
+          ...JSON.parse(localStorage.getItem("pokemon")),
+        ];
       }
-    ]
-    localStorage.setItem("pokemon", JSON.stringify(payload))
+      
+      payload = [
+        ...payload, 
+        {
+          name: pokemon.data.name,
+          customName: form.name,
+          id: pokemon.data.id,
+          image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon${location.pathname}.png`,
+          sprites: pokemon.data.sprites
+        }
+      ]
+      localStorage.setItem("pokemon", JSON.stringify(payload))
+    }
     
     setTimeout(() => {
       onModalClosed()
-      onToggleToast(true)
+      onToggleToast(true, result ? "success" : "error")
     }, 500)
 
     setTimeout(() => {
-      onToggleToast(false)
-    }, 3000)
+      onToggleToast(false, result ? "success" : "error")
+    }, 5000)
   }
 
-  function onToggleToast(value) {
-    setToast(value)
+  function onToggleToast(value, type) {
+    setToast({
+      show: value,
+      message: type === "success" ?
+      `Well done, Pokemon has been added!` :
+      `Uups! Failed to catch. Please try again!`
+    })
   }
 
   function onFormReset() {
@@ -158,12 +171,10 @@ const Detail = ({ location }) => {
                   <div className="desc-item">
                     <ProgressBar className="progress mb-2" variant="primary" now={100} width={50} />
                     <h6 className="desc-item__title">ATK { pokemon.data.stats[1].base_stat }/{ pokemon.data.stats[1].base_stat }</h6>
-                    {/* <p className="desc-item__desc">attack</p> */}
                   </div>
                   <div className="desc-item">
                     <ProgressBar className="progress mb-2" variant="danger" now={100} width={50} />
                     <h6 className="desc-item__title">DEF { pokemon.data.stats[2].base_stat }/{ pokemon.data.stats[2].base_stat }</h6>
-                    {/* <p className="desc-item__desc">defense</p> */}
                   </div>
                 </div>
               </div>
@@ -214,13 +225,13 @@ const Detail = ({ location }) => {
       </Modal>
       
       <ToastContainer position="top-center">
-        <Toast show={toast} onClose={() => onToggleToast(false)}>
+        <Toast show={toast.show} onClose={() => onToggleToast(false, "success")}>
           <Toast.Header>
             <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
             <strong className="me-auto">Notification</strong>
-            <small>3 seconds ago</small>
+            <small>1 seconds ago</small>
           </Toast.Header>
-          <Toast.Body><strong>Well done</strong>, Pokemon has been added!</Toast.Body>
+          <Toast.Body>{ toast.message }</Toast.Body>
         </Toast>
       </ToastContainer>
     </div>
