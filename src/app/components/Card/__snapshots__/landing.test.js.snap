@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders when there is one item 1`] = `
+<a
+  aria-current={null}
+  href="/1"
+  onClick={[Function]}
+>
+  <div
+    className="card"
+  >
+    <div
+      className="card-info"
+    >
+      <h6
+        className="card-info__title"
+      >
+        bulbasaur
+      </h6>
+      <p
+        className="card-desc"
+      >
+        Owned: 
+        <strong>
+          0
+        </strong>
+      </p>
+    </div>
+    <img
+      alt="bulbasaur"
+      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+    />
+  </div>
+</a>
+`;
