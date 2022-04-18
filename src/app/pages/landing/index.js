@@ -175,7 +175,6 @@ const Landing = ({ state, dispatch }) => {
         ) 
       }   
     </div>
-
   )
 }
 
