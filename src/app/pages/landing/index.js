@@ -19,10 +19,10 @@ const Landing = ({ state, dispatch }) => {
 
   async function onFetchAllPokemon() {
     try {
-      setPokemon({
-        ...pokemon,
+      setPokemon(prevState => ({
+        ...prevState,
         loading: true,
-      })
+      }))
       const res = await axiosInstance.get("/pokemon?limit=20&offset=0")
 
       const filtered = res.data.results.map((poke) => {
@@ -53,16 +53,17 @@ const Landing = ({ state, dispatch }) => {
         listResult = filtered
       }
 
-      setPokemon({
+      setPokemon(prevState => ({
+        ...prevState,
         next: res.data.next,
         list: listResult,
         loading: false
-      })
+      }))
     } catch (error) {
-      setPokemon({
-        ...pokemon,
+      setPokemon(prevState => ({
+        ...prevState,
         loading: false,
-      })
+      }))
       alert(`Error - ${error.message}`)
       throw error
     }
@@ -102,14 +103,15 @@ const Landing = ({ state, dispatch }) => {
         listResult = filtered
       }
       
-      setPokemon({
+      setPokemon(prevState => ({
+        ...prevState,
         next: res.data.next,
         list: [
           ...pokemon.list,
           ...listResult
         ],
         loading: false
-      })
+      }))
       setLoadingLoadMore(false)
     } catch (error) {
       alert(`Error - ${error.message}`)
